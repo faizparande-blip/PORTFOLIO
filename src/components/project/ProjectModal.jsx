@@ -4,6 +4,7 @@ import {
   X,
   ExternalLink,
   Layers,
+  Layout,
   AlertCircle,
   CheckCircle2,
   Cpu,
@@ -35,6 +36,7 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
   if (!isOpen || !project) return null;
 
   const { caseStudy } = project;
+  const isFullStack = project.contribution?.includes('Backend');
 
   return (
     <AnimatePresence>
@@ -54,7 +56,7 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#0B1726] border border-slate-800 rounded-2xl sm:rounded-3xl shadow-2xl z-10 text-slate-100"
+          className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#0B1726]/95 backdrop-blur-2xl border border-slate-800 rounded-2xl sm:rounded-3xl shadow-2xl z-10 text-slate-100"
         >
           {/* Header with Sticky Close Button */}
           <div className="sticky top-0 bg-[#0B1726]/95 backdrop-blur-md border-b border-slate-800 p-4 sm:p-6 md:p-8 flex items-start justify-between gap-4 z-20">
@@ -84,6 +86,43 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
 
           {/* Body Content */}
           <div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 w-full">
+            {/* Real Project Screenshot Hero in Modal */}
+            {project.image && (
+              <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl sm:rounded-2xl border border-slate-800 shadow-xl bg-[#07111F]">
+                <img
+                  src={project.image}
+                  alt={`${project.title} homepage preview`}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+            )}
+
+            {/* Recruiter-Friendly Personal Contribution Banner */}
+            {project.contribution && (
+              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-cyan-950/25 border border-cyan-500/30 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 overflow-hidden">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-cyan-400 text-slate-950 flex items-center justify-center shrink-0 shadow-xs shadow-cyan-500/30">
+                    {isFullStack ? (
+                      <Layers className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                    ) : (
+                      <Layout className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                    )}
+                  </div>
+                  <div className="overflow-hidden">
+                    <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400 block leading-tight">
+                      MY PERSONAL CONTRIBUTION
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white truncate block">
+                      {project.contribution}
+                    </span>
+                  </div>
+                </div>
+                <span className="text-[10px] sm:text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-[#07111F] text-cyan-300 border border-cyan-500/30 shrink-0">
+                  {isFullStack ? 'FULL-STACK' : 'FRONTEND'}
+                </span>
+              </div>
+            )}
+
             {/* Tech Stack Chips */}
             {project.technologies && project.technologies.length > 0 && (
               <div>
@@ -104,7 +143,7 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
             )}
 
             {/* Overview / Description */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F] border border-slate-800 text-slate-300 leading-relaxed text-sm sm:text-base break-words">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F]/80 border border-slate-800 text-slate-300 leading-relaxed text-sm sm:text-base break-words">
               {project.description}
             </div>
 
@@ -113,7 +152,7 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {/* Problem */}
                 {caseStudy.problem && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F] border border-slate-800">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F]/80 border border-slate-800">
                     <div className="flex items-center gap-2 text-amber-400 font-semibold text-sm mb-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>The Problem</span>
@@ -126,7 +165,7 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
 
                 {/* Solution */}
                 {caseStudy.solution && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F] border border-slate-800">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F]/80 border border-slate-800">
                     <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-2">
                       <CheckCircle2 className="w-4 h-4 shrink-0" />
                       <span>The Solution</span>
@@ -136,19 +175,6 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
                     </p>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* Architecture Details */}
-            {caseStudy?.architecture && (
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F] border border-slate-800">
-                <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm mb-2">
-                  <Cpu className="w-4 h-4 shrink-0" />
-                  <span>Technical Architecture</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed break-words">
-                  {caseStudy.architecture}
-                </p>
               </div>
             )}
 
@@ -162,47 +188,13 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
                   {caseStudy.features.map((feat, idx) => (
                     <li
                       key={idx}
-                      className="p-3 sm:p-3.5 rounded-xl bg-[#07111F] border border-slate-800 shadow-xs flex items-start gap-2.5 text-xs sm:text-sm text-slate-200"
+                      className="p-3 sm:p-3.5 rounded-xl bg-[#07111F]/80 border border-slate-800 shadow-xs flex items-start gap-2.5 text-xs sm:text-sm text-slate-200"
                     >
                       <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                       <span className="break-words">{feat}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
-            )}
-
-            {/* Challenges & Outcome */}
-            {caseStudy && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                {caseStudy.challenges && caseStudy.challenges.length > 0 && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-[#07111F] border border-slate-800">
-                    <div className="flex items-center gap-2 text-amber-400 font-semibold text-sm mb-2">
-                      <Flame className="w-4 h-4 shrink-0" />
-                      <span>Technical Challenges</span>
-                    </div>
-                    <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-                      {caseStudy.challenges.map((ch, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-cyan-400 mt-0.5">•</span>
-                          <span className="break-words">{ch}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {caseStudy.outcome && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30">
-                    <div className="flex items-center gap-2 text-cyan-300 font-semibold text-sm mb-2">
-                      <ArrowRight className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>Outcome & Results</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-cyan-100 leading-relaxed break-words">
-                      {caseStudy.outcome}
-                    </p>
-                  </div>
-                )}
               </div>
             )}
 

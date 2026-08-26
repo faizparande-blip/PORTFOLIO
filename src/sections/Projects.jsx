@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { portfolioData } from '../data/portfolio';
 import SectionHeading from '../components/ui/SectionHeading';
 import ProjectCard from '../components/project/ProjectCard';
-import ProjectModal from '../components/project/ProjectModal';
+
+const ProjectModal = lazy(() => import('../components/project/ProjectModal'));
 
 export const Projects = () => {
   const { projects } = portfolioData;
@@ -37,12 +38,16 @@ export const Projects = () => {
           ))}
         </div>
 
-        {/* Case Study Modal */}
-        <ProjectModal
-          project={selectedProject}
-          isOpen={!!selectedProject}
-          onClose={handleCloseCaseStudy}
-        />
+        {/* Case Study Modal (Code Split) */}
+        {selectedProject && (
+          <Suspense fallback={null}>
+            <ProjectModal
+              project={selectedProject}
+              isOpen={!!selectedProject}
+              onClose={handleCloseCaseStudy}
+            />
+          </Suspense>
+        )}
       </div>
     </section>
   );

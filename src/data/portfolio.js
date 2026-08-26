@@ -4,6 +4,12 @@
  * All content is data-driven.
  */
 
+import chefAiImage from '../assets/images/ChefAI.webp';
+import furnitureImage from '../assets/images/LIVORA Furniture.webp';
+import travelAgencyImage from '../assets/images/AEROLUX-TRAVEL.webp';
+import realStateImage from '../assets/images/Real-State.webp';
+import vvpStaffImage from '../assets/images/VVP-STAFF PORTAL.webp';
+
 export const portfolioData = {
   personal: {
     name: "Muhammad Faiz Parande",
@@ -118,11 +124,12 @@ export const portfolioData = {
       title: "ChefAI",
       tagline: "AI-Powered Recipe Recommendation Platform",
       category: "AI & Web Application",
+      contribution: "Frontend + Backend Development",
       description: "An interactive web application providing personalized recipe recommendations based on available ingredients and culinary preferences using AI integrations.",
       technologies: ["JavaScript", "HTML5", "CSS3", "OpenAI API", "REST APIs"],
       github: "https://github.com/faizparande-blip",
       live: "https://chefai-ocoj.onrender.com/",
-      image: "",
+      image: chefAiImage,
       featured: true,
       caseStudy: {
         problem: "Users frequently find it difficult to decide what to cook with ingredients already available in their pantry, leading to food waste.",
@@ -140,11 +147,12 @@ export const portfolioData = {
       title: "Furniture E-Commerce",
       tagline: "Modern Furniture & Interior Online Store",
       category: "E-Commerce Web Application",
+      contribution: "Frontend Development",
       description: "A full-featured responsive e-commerce web application for browsing furniture catalogs, product details, and seamless shopping cart interactions.",
       technologies: ["React.js", "JavaScript", "Tailwind CSS"],
       github: "https://github.com/faizparande-blip/furniture-E-Commerce",
       live: "https://furniture-e-commerce-weld.vercel.app/",
-      image: "",
+      image: furnitureImage,
       featured: true,
       caseStudy: {
         problem: "Users need a fast, responsive, and intuitive interface to discover, inspect, and order furniture online.",
@@ -162,11 +170,12 @@ export const portfolioData = {
       title: "Travel Agency",
       tagline: "Travel Booking & Tour Destination Platform",
       category: "Web Application",
+      contribution: "Frontend Development",
       description: "A modern travel and tour booking web platform showcasing destination packages, tour itineraries, and interactive customer inquiry interfaces.",
       technologies: ["React.js", "JavaScript", "Tailwind CSS"],
       github: "https://github.com/faizparande-blip/Travel-Agency",
       live: "https://travel-agency-sepia-one.vercel.app/",
-      image: "",
+      image: travelAgencyImage,
       featured: true,
       caseStudy: {
         problem: "Travelers look for comprehensive tour package details, pricing, and visual destination guides in an organized layout.",
@@ -184,11 +193,12 @@ export const portfolioData = {
       title: "Real State",
       tagline: "Property Listings & Real Estate Discovery Platform",
       category: "Web Application",
+      contribution: "Frontend Development",
       description: "A real estate property listing and search platform for exploring residential and commercial properties with location details and amenity filters.",
       technologies: ["React.js", "JavaScript", "Tailwind CSS"],
       github: "https://github.com/faizparande-blip/real-state",
       live: "https://real-state-olive-ten.vercel.app/",
-      image: "",
+      image: realStateImage,
       featured: true,
       caseStudy: {
         problem: "Prospective buyers and tenants need an easy way to explore real estate properties with clear pricing, photos, and location specifics.",
@@ -206,11 +216,12 @@ export const portfolioData = {
       title: "College Staff Portal for VVPIET",
       tagline: "Academic Staff Directory & Institutional Portal",
       category: "Institutional Web Application",
+      contribution: "Frontend + Backend Development",
       description: "An institutional portal developed for VVPIET to streamline staff directory lookups, departmental information, and faculty profile management.",
       technologies: ["React.js", "JavaScript", "Tailwind CSS"],
       github: "https://github.com/faizparande-blip/VVP-STAFF",
       live: "https://vvp-staff-psi.vercel.app/",
-      image: "",
+      image: vvpStaffImage,
       featured: true,
       caseStudy: {
         problem: "Institutions need a centralized, easily accessible digital portal to display faculty profiles, department hierarchies, and staff contact details.",

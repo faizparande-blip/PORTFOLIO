@@ -9,7 +9,7 @@ import {
 import { Github, Linkedin } from '../components/ui/Icons';
 import { portfolioData } from '../data/portfolio';
 import Button from '../components/ui/Button';
-import profileImage from '../assets/images/Faizportfoliophoto.jpeg';
+import profileImage from '../assets/images/Faizportfoliophoto.webp';
 
 export const Hero = ({ isLoaded = true }) => {
   const { personal, social } = portfolioData;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
@@ -15,8 +15,9 @@ import { Github, Linkedin } from '../components/ui/Icons';
 import { portfolioData } from '../data/portfolio';
 import SectionHeading from '../components/ui/SectionHeading';
 import Button from '../components/ui/Button';
-import ContactSuccess from '../components/ContactSuccess';
 import { sendContactMessage } from '../services/contactService';
+
+const ContactSuccess = lazy(() => import('../components/ContactSuccess'));
 
 export const Contact = () => {
   const { contact, personal, social } = portfolioData;
@@ -231,11 +232,13 @@ export const Contact = () => {
           <div className="lg:col-span-7 w-full">
             <AnimatePresence mode="wait">
               {formStatus === 'success' ? (
-                <ContactSuccess
-                  key="success"
-                  onReset={handleReset}
-                  email={formData.email}
-                />
+                <Suspense fallback={null}>
+                  <ContactSuccess
+                    key="success"
+                    onReset={handleReset}
+                    email={formData.email}
+                  />
+                </Suspense>
               ) : (
                 <motion.div
                   key="form"
