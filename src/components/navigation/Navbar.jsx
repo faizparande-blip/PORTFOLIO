@@ -23,7 +23,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 15);
+      setScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -44,43 +44,43 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5'
-          : 'bg-transparent py-5'
+          ? 'bg-[#050B14]/85 backdrop-blur-md border-b border-cyan-500/20 shadow-lg shadow-cyan-950/20 py-3 sm:py-3.5'
+          : 'bg-transparent py-4 sm:py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Left: Logo / Name */}
+        {/* Left: FP Logo / Name */}
         <a
           href="#hero"
-          className="group flex items-center gap-2 font-bold text-base tracking-tight text-slate-900 hover:text-blue-600 transition-colors"
+          className="group flex items-center gap-2.5 font-bold text-sm sm:text-base tracking-tight text-slate-100 hover:text-cyan-400 transition-colors shrink-0 max-w-[70%] sm:max-w-none"
         >
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white font-mono text-sm font-semibold shadow-xs">
-            {portfolioData.personal.name ? portfolioData.personal.name.charAt(0) : 'P'}
+          <span className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs sm:text-sm font-extrabold shadow-sm shadow-cyan-500/30 group-hover:scale-105 transition-transform shrink-0">
+            FP
           </span>
-          <span className="text-slate-900 group-hover:text-blue-600 transition-colors">
+          <span className="text-slate-100 group-hover:text-cyan-400 transition-colors truncate">
             {portfolioData.personal.name}
           </span>
         </a>
 
-        {/* Center: Desktop Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/60 backdrop-blur-sm">
+        {/* Center: Desktop Navigation Pills with Sliding Indicator */}
+        <nav className="hidden md:flex items-center gap-1 bg-[#0B1726]/90 p-1 rounded-full border border-slate-800/90 backdrop-blur-sm shadow-inner">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <a
                 key={link.id}
                 href={link.href}
-                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all ${
-                  isActive ? 'text-blue-600 font-semibold' : 'text-slate-600 hover:text-slate-900'
+                className={`relative px-3.5 lg:px-4 py-1.5 text-xs font-medium rounded-full transition-all ${
+                  isActive ? 'text-cyan-300 font-semibold' : 'text-slate-400 hover:text-slate-100'
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeNavTab"
-                    className="absolute inset-0 bg-white rounded-full shadow-xs border border-slate-200/60"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    className="absolute inset-0 bg-cyan-950/70 rounded-full border border-cyan-500/40 shadow-xs shadow-cyan-400/20"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
                 <span className="relative z-10">{link.name}</span>
@@ -90,13 +90,13 @@ export const Navbar = () => {
         </nav>
 
         {/* Right: Resume & Social */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2.5">
           {portfolioData.social.github && (
             <a
               href={portfolioData.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-[#0B1726] rounded-lg border border-transparent hover:border-slate-800 transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
@@ -107,7 +107,7 @@ export const Navbar = () => {
               href={portfolioData.social.resume}
               variant="secondary"
               size="sm"
-              icon={<FileText className="w-3.5 h-3.5 text-blue-600" />}
+              icon={<FileText className="w-3.5 h-3.5 text-cyan-400" />}
               isExternal
             >
               Resume
@@ -115,69 +115,82 @@ export const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile menu trigger */}
+        {/* Mobile Hamburger Button */}
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 border border-slate-200 transition-colors"
+          className="md:hidden p-2.5 text-slate-300 hover:text-cyan-400 rounded-xl hover:bg-[#0B1726] border border-slate-800/80 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center shrink-0 cursor-pointer"
           aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer with Backdrop */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-b border-slate-200 bg-white/98 backdrop-blur-xl px-6 py-5 shadow-lg"
-          >
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                    activeSection === link.id
-                      ? 'bg-blue-50 text-blue-600 font-semibold'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              ))}
-              
-              <div className="pt-4 mt-2 border-t border-slate-100 flex items-center justify-between gap-3">
-                {portfolioData.social.resume && (
-                  <Button
-                    href={portfolioData.social.resume}
-                    variant="primary"
-                    size="md"
-                    className="w-full"
-                    icon={<FileText className="w-4 h-4" />}
-                    isExternal
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 top-[60px] bg-slate-950/70 backdrop-blur-xs z-40 md:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative z-50 md:hidden border-b border-cyan-500/20 bg-[#07111F]/98 backdrop-blur-xl px-5 py-4 shadow-2xl"
+            >
+              <div className="flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                      activeSection === link.id
+                        ? 'bg-cyan-950/50 text-cyan-300 border border-cyan-500/30 font-semibold'
+                        : 'text-slate-300 hover:bg-[#0B1726] hover:text-slate-100'
+                    }`}
                   >
-                    Resume
-                  </Button>
-                )}
-                {portfolioData.social.github && (
-                  <Button
-                    href={portfolioData.social.github}
-                    variant="secondary"
-                    size="md"
-                    icon={<Github className="w-4 h-4" />}
-                    isExternal
-                    aria-label="GitHub"
-                  />
-                )}
+                    {link.name}
+                  </a>
+                ))}
+                
+                <div className="pt-3 mt-1 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                  {portfolioData.social.resume && (
+                    <Button
+                      href={portfolioData.social.resume}
+                      variant="primary"
+                      size="md"
+                      className="w-full min-h-[44px]"
+                      icon={<FileText className="w-4 h-4 text-slate-950" />}
+                      isExternal
+                    >
+                      Resume PDF
+                    </Button>
+                  )}
+                  {portfolioData.social.github && (
+                    <Button
+                      href={portfolioData.social.github}
+                      variant="secondary"
+                      size="md"
+                      className="min-h-[44px] min-w-[44px] px-3"
+                      icon={<Github className="w-4 h-4 text-cyan-400" />}
+                      isExternal
+                      aria-label="GitHub Profile"
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

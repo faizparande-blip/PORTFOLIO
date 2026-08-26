@@ -33,15 +33,15 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-900 p-6">
-          <div className="p-8 rounded-2xl bg-white border border-slate-200 shadow-xl max-w-md text-center">
-            <h2 className="text-xl font-bold text-rose-600 mb-2">Something went wrong</h2>
-            <p className="text-xs text-slate-500 mb-6">
+        <div className="min-h-screen flex items-center justify-center bg-[#050B14] text-slate-100 p-6">
+          <div className="p-8 rounded-2xl bg-[#0B1726] border border-slate-800 shadow-2xl max-w-md text-center">
+            <h2 className="text-xl font-bold text-rose-400 mb-2">Something went wrong</h2>
+            <p className="text-xs text-slate-400 mb-6">
               An unexpected error occurred. Please try reloading the page.
             </p>
             <button
               onClick={() => window.location.reload()}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-xs hover:bg-blue-700 transition-colors"
+              className="px-5 py-2.5 rounded-xl bg-cyan-400 text-slate-950 font-bold text-xs hover:bg-cyan-300 transition-colors cursor-pointer"
             >
               Reload Page
             </button>
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="relative min-h-screen bg-white text-slate-900 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+      <div className="relative min-h-screen bg-[#050B14] text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300 overflow-x-hidden">
         {/* Technical System Loader */}
         <AnimatePresence mode="wait">
           {isLoading && (
@@ -70,10 +70,10 @@ function App() {
           )}
         </AnimatePresence>
 
-        {/* Subtle modern background */}
+        {/* Midnight Blue & Cyan Background */}
         <TechBackground />
 
-        {/* Sticky SaaS Navbar */}
+        {/* Sticky Dark Navbar */}
         <Navbar />
 
         {/* Main Content Sections */}

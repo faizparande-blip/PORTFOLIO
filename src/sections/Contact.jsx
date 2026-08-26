@@ -102,28 +102,28 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative z-10 bg-slate-50/60 border-t border-slate-200/60">
-      <div className="max-w-7xl mx-auto">
+    <section id="contact" className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#07111F]/40 backdrop-blur-xs border-t border-slate-800/80 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
         <SectionHeading
           tag="CONTACT"
           title="Let's build something great."
           subtitle={contact.subheading}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
-          {/* Left Column: Direct Contact Details & Links */}
-          <div className="lg:col-span-5 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start w-full">
+          {/* Left Column: Direct Contact Details & Links with Glassmorphism */}
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6 w-full">
             <div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5 sm:mb-2">
                 Get in touch
               </h3>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Whether you have an internship opportunity, a full-stack project, or a technical consultation, my inbox is always open.
+              <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed">
+                Whether you have an engineering opportunity, a collaborative data project, or a technical consultation, my inbox is always open.
               </p>
             </div>
 
-            {/* Email Card that opens Gmail Compose */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between gap-3">
+            {/* Email Card (Frosted Glass Surface) */}
+            <div className="p-3.5 sm:p-5 rounded-2xl bg-[#0B1726]/80 backdrop-blur-md border border-slate-800/80 hover:border-cyan-500/40 shadow-xl flex flex-col xs:flex-row xs:items-center justify-between gap-3 w-full overflow-hidden transition-colors">
               <a
                 href={gmailComposeUrl}
                 target="_blank"
@@ -131,15 +131,15 @@ export const Contact = () => {
                 className="flex items-center gap-3 overflow-hidden group cursor-pointer"
                 title="Click to compose email in Gmail"
               >
-                <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                  <Mail className="w-5 h-5" />
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950 transition-colors shrink-0">
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div className="overflow-hidden">
-                  <div className="text-xs text-slate-500 font-medium flex items-center gap-1">
+                  <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1 font-mono">
                     <span>Direct Email</span>
-                    <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-blue-600" />
+                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-400 shrink-0" />
                   </div>
-                  <div className="text-sm sm:text-base font-semibold text-slate-900 group-hover:text-blue-600 truncate transition-colors">
+                  <div className="text-xs sm:text-base font-semibold text-slate-100 group-hover:text-cyan-300 truncate transition-colors">
                     {personal.email}
                   </div>
                 </div>
@@ -148,51 +148,52 @@ export const Contact = () => {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer"
+                className="px-3 py-2 rounded-lg bg-[#07111F]/90 hover:bg-[#102238] border border-slate-800 text-slate-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shrink-0 cursor-pointer min-h-[38px] self-start xs:self-auto"
                 title="Copy email address"
               >
                 {copiedEmail ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-600">Copied</span>
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span className="text-cyan-400">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-600" />
+                    <Copy className="w-3.5 h-3.5 text-slate-400" />
                     <span>Copy</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* Location & Availability */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+            {/* Location & Availability with Glassmorphism */}
+            <div className="p-3.5 sm:p-5 rounded-2xl bg-[#0B1726]/80 backdrop-blur-md border border-slate-800/80 shadow-xl space-y-2.5 sm:space-y-3 w-full">
               {personal.location && (
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>{personal.location}</span>
+                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-300">
+                  <MapPin className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span className="break-words">{personal.location}</span>
                 </div>
               )}
               {contact.availability && (
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{contact.availability}</span>
+                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-300">
+                  <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span className="break-words">{contact.availability}</span>
                 </div>
               )}
             </div>
 
             {/* Social Links */}
-            <div className="pt-2">
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+            <div className="pt-1">
+              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2.5 sm:mb-3 font-mono">
                 Connect Online
               </div>
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-2">
                 {social.github && (
                   <Button
                     href={social.github}
                     variant="secondary"
                     size="sm"
-                    icon={<Github className="w-4 h-4" />}
+                    className="min-h-[40px]"
+                    icon={<Github className="w-4 h-4 text-slate-300" />}
                     isExternal
                   >
                     GitHub
@@ -203,7 +204,8 @@ export const Contact = () => {
                     href={social.linkedin}
                     variant="secondary"
                     size="sm"
-                    icon={<Linkedin className="w-4 h-4 text-blue-600" />}
+                    className="min-h-[40px]"
+                    icon={<Linkedin className="w-4 h-4 text-cyan-400" />}
                     isExternal
                   >
                     LinkedIn
@@ -214,7 +216,8 @@ export const Contact = () => {
                     href={gmailComposeUrl}
                     variant="secondary"
                     size="sm"
-                    icon={<Mail className="w-4 h-4 text-emerald-600" />}
+                    className="min-h-[40px]"
+                    icon={<Mail className="w-4 h-4 text-cyan-400" />}
                     isExternal
                   >
                     Gmail
@@ -224,8 +227,8 @@ export const Contact = () => {
             </div>
           </div>
 
-          {/* Right Column: Dynamic Form / Email Sent Success Container */}
-          <div className="lg:col-span-7">
+          {/* Right Column: Frosted Glass Form / Email Sent Success Container */}
+          <div className="lg:col-span-7 w-full">
             <AnimatePresence mode="wait">
               {formStatus === 'success' ? (
                 <ContactSuccess
@@ -240,30 +243,30 @@ export const Contact = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm"
+                  className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#0B1726]/80 backdrop-blur-xl border border-slate-800/90 hover:border-cyan-500/30 shadow-2xl w-full overflow-hidden transition-colors"
                 >
-                  <div className="flex items-center justify-between mb-6">
-                    <h4 className="text-lg font-bold text-slate-900">
+                  <div className="flex items-center justify-between mb-5 sm:mb-6">
+                    <h4 className="text-base sm:text-lg font-bold text-white">
                       Send a Message
                     </h4>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-[11px] font-mono text-slate-500">
                       SECURE INQUIRY
                     </span>
                   </div>
 
                   {formStatus === 'error' && (
-                    <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                    <div className="mb-4 p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{errorMessage || 'Something went wrong. Please try again.'}</span>
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 w-full">
                     {/* Name & Email Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 w-full">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                          Your Name <span className="text-rose-500">*</span>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Your Name <span className="text-rose-400">*</span>
                         </label>
                         <input
                           type="text"
@@ -272,20 +275,20 @@ export const Contact = () => {
                           onChange={handleChange}
                           disabled={formStatus === 'submitting'}
                           placeholder="Alex Morgan"
-                          className={`w-full px-4 py-2.5 rounded-xl bg-slate-50 border text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
+                          className={`w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#07111F]/80 backdrop-blur-sm border text-white text-sm placeholder-slate-500 focus:bg-[#050B14]/95 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all min-h-[44px] disabled:opacity-60 ${
                             errors.name
-                              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-100'
-                              : 'border-slate-200 focus:border-blue-500 focus:ring-blue-100'
+                              ? 'border-rose-500/60 focus:border-rose-400'
+                              : 'border-slate-800'
                           }`}
                         />
                         {errors.name && (
-                          <p className="text-xs text-rose-500 mt-1 font-medium">{errors.name}</p>
+                          <p className="text-xs text-rose-400 mt-1 font-medium">{errors.name}</p>
                         )}
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                          Email Address <span className="text-rose-500">*</span>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Email Address <span className="text-rose-400">*</span>
                         </label>
                         <input
                           type="email"
@@ -294,21 +297,21 @@ export const Contact = () => {
                           onChange={handleChange}
                           disabled={formStatus === 'submitting'}
                           placeholder="alex@example.com"
-                          className={`w-full px-4 py-2.5 rounded-xl bg-slate-50 border text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all disabled:opacity-60 ${
+                          className={`w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#07111F]/80 backdrop-blur-sm border text-white text-sm placeholder-slate-500 focus:bg-[#050B14]/95 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all min-h-[44px] disabled:opacity-60 ${
                             errors.email
-                              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-100'
-                              : 'border-slate-200 focus:border-blue-500 focus:ring-blue-100'
+                              ? 'border-rose-500/60 focus:border-rose-400'
+                              : 'border-slate-800'
                           }`}
                         />
                         {errors.email && (
-                          <p className="text-xs text-rose-500 mt-1 font-medium">{errors.email}</p>
+                          <p className="text-xs text-rose-400 mt-1 font-medium">{errors.email}</p>
                         )}
                       </div>
                     </div>
 
                     {/* Subject Field */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                         Subject
                       </label>
                       <input
@@ -318,14 +321,14 @@ export const Contact = () => {
                         onChange={handleChange}
                         disabled={formStatus === 'submitting'}
                         placeholder="Project Inquiry / Job Opportunity"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all disabled:opacity-60"
+                        className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#07111F]/80 backdrop-blur-sm border border-slate-800 text-white text-sm placeholder-slate-500 focus:bg-[#050B14]/95 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all min-h-[44px] disabled:opacity-60"
                       />
                     </div>
 
                     {/* Message Area */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                        Message <span className="text-rose-500">*</span>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Message <span className="text-rose-400">*</span>
                       </label>
                       <textarea
                         rows={4}
@@ -334,30 +337,30 @@ export const Contact = () => {
                         onChange={handleChange}
                         disabled={formStatus === 'submitting'}
                         placeholder="Tell me about your project or opportunity..."
-                        className={`w-full px-4 py-2.5 rounded-xl bg-slate-50 border text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all resize-none disabled:opacity-60 ${
+                        className={`w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#07111F]/80 backdrop-blur-sm border text-white text-sm placeholder-slate-500 focus:bg-[#050B14]/95 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all resize-none disabled:opacity-60 ${
                           errors.message
-                            ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-100'
-                            : 'border-slate-200 focus:border-blue-500 focus:ring-blue-100'
+                            ? 'border-rose-500/60 focus:border-rose-400'
+                            : 'border-slate-800'
                         }`}
                       />
                       {errors.message && (
-                        <p className="text-xs text-rose-500 mt-1 font-medium">{errors.message}</p>
+                        <p className="text-xs text-rose-400 mt-1 font-medium">{errors.message}</p>
                       )}
                     </div>
 
-                    {/* Submit Button with Loading Indicator */}
-                    <div className="pt-2">
+                    {/* Submit Button */}
+                    <div className="pt-1">
                       <Button
                         type="submit"
                         variant="primary"
                         size="lg"
-                        className="w-full sm:w-auto shadow-md shadow-blue-500/10 min-w-[160px]"
+                        className="w-full sm:w-auto min-h-[44px] min-w-[160px] justify-center shadow-lg shadow-cyan-500/25"
                         disabled={formStatus === 'submitting'}
                         icon={
                           formStatus === 'submitting' ? (
-                            <Loader2 className="w-4 h-4 animate-spin text-white" />
+                            <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
                           ) : (
-                            <Send className="w-4 h-4" />
+                            <Send className="w-4 h-4 text-slate-950" />
                           )
                         }
                       >

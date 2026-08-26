@@ -98,6 +98,7 @@ export const portfolioData = {
       // AI & Analytics
       { name: "Power BI", category: "ai", icon: "Sparkles" },
       { name: "Pandas & NumPy", category: "ai", icon: "Boxes" },
+      { name: "TensorFlow", category: "ai", icon: "Cpu" },
       { name: "Matplotlib & Scikit-learn", category: "ai", icon: "RefreshCw" },
       { name: "OpenAI API & Prompt Eng.", category: "ai", icon: "Zap" },
 

@@ -17,16 +17,16 @@ export const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative z-10 bg-slate-50/60 border-t border-slate-200/60">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#07111F]/60 border-t border-slate-800/80 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
         <SectionHeading
           tag="PORTFOLIO"
           title="Featured Projects"
-          subtitle="Selected full-stack web applications and engineering projects."
+          subtitle="Selected full-stack web applications, e-commerce systems, and data-driven platforms."
         />
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 w-full">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}

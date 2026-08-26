@@ -16,11 +16,11 @@ export const Badge = ({
   };
 
   const variantStyles = {
-    default: 'bg-slate-100 text-slate-700 border border-slate-200/80',
-    blue: 'bg-blue-50 text-blue-700 border border-blue-200/70',
-    indigo: 'bg-indigo-50 text-indigo-700 border border-indigo-200/70',
-    emerald: 'bg-emerald-50 text-emerald-700 border border-emerald-200/70',
-    status: 'bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm'
+    default: 'bg-[#0B1726] text-slate-300 border border-slate-700/60',
+    blue: 'bg-cyan-950/40 text-cyan-300 border border-cyan-500/30',
+    indigo: 'bg-blue-950/40 text-blue-300 border border-blue-500/30',
+    emerald: 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30',
+    status: 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/40 shadow-xs'
   };
 
   return (
