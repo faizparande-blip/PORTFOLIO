@@ -1,21 +1,27 @@
-import React, { Component, useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import PortfolioLoader from './components/PortfolioLoader';
+import React, { Component, Suspense, lazy } from 'react';
 import TechBackground from './components/background/TechBackground';
 import Navbar from './components/navigation/Navbar';
-import Footer from './components/navigation/Footer';
-
-// Sections
 import Hero from './sections/Hero';
-import About from './sections/About';
-import Skills from './sections/Skills';
-import Projects from './sections/Projects';
-import Experience from './sections/Experience';
-import Education from './sections/Education';
-import ResumeCTA from './sections/ResumeCTA';
-import Contact from './sections/Contact';
 
-// Error Boundary
+// Below-the-fold sections loaded progressively
+const About = lazy(() => import('./sections/About'));
+const Skills = lazy(() => import('./sections/Skills'));
+const Projects = lazy(() => import('./sections/Projects'));
+const Experience = lazy(() => import('./sections/Experience'));
+const Education = lazy(() => import('./sections/Education'));
+const ResumeCTA = lazy(() => import('./sections/ResumeCTA'));
+const Contact = lazy(() => import('./sections/Contact'));
+const Footer = lazy(() => import('./components/navigation/Footer'));
+
+// Lightweight Section Fallback
+const SectionPlaceholder = () => (
+  <div className="py-12 flex items-center justify-center text-slate-600 text-xs font-mono">
+    <span className="w-2 h-2 rounded-full bg-cyan-500/40 animate-pulse mr-2" />
+    Loading module...
+  </div>
+);
+
+// Error Boundary to prevent full screen blank crashes
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
@@ -54,42 +60,35 @@ class ErrorBoundary extends Component {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleLoaderComplete = () => {
-    setIsLoading(false);
-  };
-
   return (
     <ErrorBoundary>
       <div className="relative min-h-screen bg-[#050B14] text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300 overflow-x-hidden">
-        {/* Technical System Loader */}
-        <AnimatePresence mode="wait">
-          {isLoading && (
-            <PortfolioLoader onComplete={handleLoaderComplete} />
-          )}
-        </AnimatePresence>
-
         {/* Midnight Blue & Cyan Background */}
         <TechBackground />
 
-        {/* Sticky Dark Navbar */}
+        {/* Critical Sticky Navbar */}
         <Navbar />
 
-        {/* Main Content Sections */}
+        {/* Critical Above-The-Fold Hero */}
         <main className="relative z-10">
-          <Hero isLoaded={!isLoading} />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Education />
-          <ResumeCTA />
-          <Contact />
+          <Hero isLoaded={true} />
+
+          {/* Progressive Below-The-Fold Sections */}
+          <Suspense fallback={<SectionPlaceholder />}>
+            <About />
+            <Skills />
+            <Projects />
+            <Experience />
+            <Education />
+            <ResumeCTA />
+            <Contact />
+          </Suspense>
         </main>
 
         {/* Footer */}
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </div>
     </ErrorBoundary>
   );
