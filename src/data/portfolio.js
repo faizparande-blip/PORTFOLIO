@@ -100,6 +100,7 @@ export const portfolioData = {
       // Database
       { name: "MySQL", category: "database", icon: "HardDrive" },
       { name: "MongoDB", category: "database", icon: "FolderGit2" },
+      { name: "Supabase", category: "database", icon: "Database" },
 
       // AI & Analytics
       { name: "Power BI", category: "ai", icon: "Sparkles" },

@@ -79,9 +79,11 @@ export const Navbar = () => {
                 {isActive && (
                   <motion.span
                     layoutId="activeNavTab"
-                    className="absolute inset-0 bg-cyan-950/70 rounded-full border border-cyan-500/40 shadow-xs shadow-cyan-400/20"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-950/80 via-[#0C2238] to-cyan-950/80 rounded-full border border-cyan-400/50 shadow-xs shadow-cyan-400/25 overflow-hidden"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  >
+                    <span className="absolute top-0 inset-x-2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-xs shadow-cyan-400" />
+                  </motion.span>
                 )}
                 <span className="relative z-10">{link.name}</span>
               </a>
