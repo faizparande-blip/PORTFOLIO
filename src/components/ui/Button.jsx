@@ -10,6 +10,7 @@ export const Button = ({
   onClick,
   target,
   rel,
+  download,
   icon = null,
   iconRight = false,
   isExternal = false,
@@ -54,7 +55,7 @@ export const Button = ({
       {icon && !iconRight && <span className="shrink-0">{icon}</span>}
       <span>{children}</span>
       {icon && iconRight && <span className="shrink-0">{icon}</span>}
-      {isExternal && !icon && (
+      {isExternal && !icon && !download && (
         <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       )}
     </>
@@ -65,12 +66,13 @@ export const Button = ({
       <motion.a
         ref={buttonRef}
         href={href}
+        download={download}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{ x: position.x, y: position.y }}
         transition={{ type: 'spring', stiffness: 350, damping: 25, mass: 0.1 }}
-        target={target || (isExternal ? '_blank' : undefined)}
-        rel={rel || (isExternal ? 'noopener noreferrer' : undefined)}
+        target={target || (isExternal && !download ? '_blank' : undefined)}
+        rel={rel || (isExternal && !download ? 'noopener noreferrer' : undefined)}
         className={`group ${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
         {...props}
       >

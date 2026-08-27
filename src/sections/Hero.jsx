@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
   ArrowRight,
-  Download,
   ArrowDown
 } from 'lucide-react';
 import { Github, Linkedin } from '../components/ui/Icons';
@@ -89,29 +88,31 @@ export const Hero = ({ isLoaded = true }) => {
             <span>HELLO, I'M</span>
           </motion.div>
 
-          {/* Full Name with Upward Mask Reveal */}
+          {/* Big Bold Name */}
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-2 sm:mb-3 break-words max-w-full"
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-2 sm:mb-3 leading-[1.1] break-words"
           >
             {personal.name}
           </motion.h1>
 
-          {/* Dynamic Rotating Role with Cyan Glow */}
+          {/* Dynamic Rotating Role Badge */}
           <motion.div
             variants={itemVariants}
-            className="h-8 sm:h-10 md:h-11 overflow-hidden mb-4 sm:mb-6 flex items-center w-full"
+            className="h-9 sm:h-11 flex items-center mb-4 sm:mb-5 overflow-hidden"
           >
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentRoleIndex}
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
+                exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="text-lg sm:text-2xl md:text-3xl font-bold text-cyan-400 flex items-center gap-2.5 drop-shadow-[0_0_15px_rgba(0,217,255,0.35)]"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-mono text-xs sm:text-sm font-bold tracking-wider shadow-xs shadow-cyan-500/20"
               >
+                <span className="text-cyan-400 font-mono">&gt;</span>
                 <span>{roles[currentRoleIndex]}</span>
+                <span className="inline-block w-1.5 h-3.5 bg-cyan-400 ml-1 animate-pulse" />
               </motion.div>
             </AnimatePresence>
           </motion.div>
@@ -125,30 +126,20 @@ export const Hero = ({ isLoaded = true }) => {
             <span className="text-slate-400 hidden sm:inline">{personal.shortBio}</span>
           </motion.p>
 
-          {/* CTA Buttons with Magnetic Physics */}
+          {/* Single Primary CTA Button */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8 sm:mb-10 w-full sm:w-auto"
+            className="flex items-center mb-8 sm:mb-10 w-full sm:w-auto"
           >
             <Button
               href="#projects"
               variant="primary"
               size="lg"
-              className="w-full sm:w-auto min-h-[44px] justify-center shadow-lg shadow-cyan-500/20"
+              className="w-full sm:w-auto min-h-[46px] justify-center shadow-lg shadow-cyan-500/25 px-8"
               iconRight
               icon={<ArrowRight className="w-4 h-4 text-slate-950" />}
             >
               View My Work
-            </Button>
-            <Button
-              href={social.resume}
-              download="Muhammad_Faiz_Parande_Resume.pdf"
-              variant="secondary"
-              size="lg"
-              icon={<Download className="w-4 h-4 text-cyan-400" />}
-              className="w-full sm:w-auto min-h-[44px] justify-center"
-            >
-              Download Resume
             </Button>
           </motion.div>
 
@@ -166,10 +157,10 @@ export const Hero = ({ isLoaded = true }) => {
                 href={social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-lg bg-[#0B1726] hover:bg-[#102238] border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 text-xs font-medium transition-all min-h-[40px]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-[#0B1726]/80 hover:bg-[#102238] hover:text-white border border-slate-800 hover:border-cyan-500/40 transition-colors shadow-2xs min-h-[36px]"
                 aria-label="GitHub Profile"
               >
-                <Github className="w-3.5 h-3.5 text-slate-300 shrink-0" />
+                <Github className="w-3.5 h-3.5 text-slate-400" />
                 <span>GitHub</span>
               </a>
             )}
@@ -179,10 +170,10 @@ export const Hero = ({ isLoaded = true }) => {
                 href={social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-lg bg-[#0B1726] hover:bg-[#102238] border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 text-xs font-medium transition-all min-h-[40px]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-[#0B1726]/80 hover:bg-[#102238] hover:text-white border border-slate-800 hover:border-cyan-500/40 transition-colors shadow-2xs min-h-[36px]"
                 aria-label="LinkedIn Profile"
               >
-                <Linkedin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Linkedin className="w-3.5 h-3.5 text-cyan-400" />
                 <span>LinkedIn</span>
               </a>
             )}
@@ -192,93 +183,101 @@ export const Hero = ({ isLoaded = true }) => {
                 href={gmailComposeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-lg bg-[#0B1726] hover:bg-[#102238] border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 text-xs font-medium transition-all min-h-[40px]"
-                aria-label="Compose Gmail"
-                title="Send email via Gmail"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-[#0B1726]/80 hover:bg-[#102238] hover:text-white border border-slate-800 hover:border-cyan-500/40 transition-colors shadow-2xs min-h-[36px]"
+                aria-label="Direct Email"
               >
-                <Mail className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Email</span>
               </a>
             )}
           </motion.div>
         </motion.div>
 
-        {/* Right Column: Professional Profile Portrait with Cyber-Tech Frame */}
+        {/* Right Column: Framed Professional Profile Portrait with Cyber-Tech Corner Accents */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
-          animate={isLoaded ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.96, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ y: -4, transition: { duration: 0.25 } }}
-          className="lg:col-span-5 relative w-full flex items-center justify-center select-none"
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.94 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 flex justify-center items-center w-full"
         >
-          {/* Animated Circular Tech/Circuit System Behind Portrait */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-            {/* Outer Orbiting Circuit Ring */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-              className="w-72 sm:w-[420px] h-72 sm:h-[420px] rounded-full border border-dashed border-cyan-500/20"
-            />
-            {/* Inner Rotating Dashed Tech Ring */}
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="absolute w-60 sm:w-[350px] h-60 sm:h-[350px] rounded-full border border-cyan-400/25"
-            />
-            {/* Soft Ambient Cyan Depth */}
-            <div className="absolute w-64 sm:w-[380px] h-64 sm:h-[380px] bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
-          </div>
+          <div className="relative max-w-[300px] xs:max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] xl:max-w-[440px] w-full group">
+            {/* Ambient Cyan Radial Backlight */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-sky-500/15 to-transparent rounded-3xl blur-2xl -z-10 group-hover:bg-cyan-500/30 transition-colors duration-500" />
 
-          {/* Main Professional Portrait Card & Frame */}
-          <div className="relative rounded-2xl sm:rounded-3xl bg-[#0B1726]/90 p-2 sm:p-2.5 border border-slate-800 shadow-2xl hover:border-cyan-500/50 hover:shadow-cyan-950/40 transition-all duration-300 group max-w-[300px] xs:max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] xl:max-w-[440px] w-full backdrop-blur-md">
-            {/* Subtle Cyber-Tech Corner Accents */}
-            <div className="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-2 border-l-2 border-cyan-400 rounded-tl-lg pointer-events-none z-20 shadow-xs shadow-cyan-400/50" />
-            <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-2 border-r-2 border-cyan-400 rounded-br-lg pointer-events-none z-20 shadow-xs shadow-cyan-400/50" />
+            {/* Rotating Subtle Geometric Tech Rings */}
+            <div className="absolute -inset-3 sm:-inset-4 border border-dashed border-cyan-500/25 rounded-3xl pointer-events-none -z-10 animate-[spin_30s_linear_infinite]" />
+            <div className="absolute -inset-1.5 border border-cyan-500/20 rounded-3xl pointer-events-none -z-10" />
 
-            {/* Profile Image Viewport */}
-            <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-xl sm:rounded-2xl bg-[#07111F]">
-              <img
-                src={profileImage}
-                alt="Muhammad Faiz Parande"
-                loading="eager"
-                fetchPriority="high"
-                className="w-full h-full object-cover object-[center_20%] group-hover:scale-[1.03] transition-transform duration-500 ease-out"
-              />
+            {/* Portrait Frame Container */}
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0B1726] border border-slate-800 group-hover:border-cyan-500/50 shadow-2xl transition-all duration-300 group-hover:-translate-y-1">
+              
+              {/* Corner Tech Bracket Accents */}
+              <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-400 pointer-events-none z-20" />
+              <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-400 pointer-events-none z-20" />
 
-              {/* Bottom Subtle Gradient Fade Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1726]/85 via-transparent to-transparent pointer-events-none" />
+              {/* Profile Photo */}
+              <div className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden bg-[#07111F]">
+                <img
+                  src={profileImage}
+                  alt="Muhammad Faiz Parande"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover object-[center_20%] group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                />
+
+                {/* Bottom subtle gradient vignette to blend with card surface */}
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0B1726] via-[#0B1726]/40 to-transparent pointer-events-none" />
+              </div>
+
+              {/* Bottom Info Bar inside Card */}
+              <div className="p-3.5 sm:p-4 bg-[#0B1726] border-t border-slate-800/80 flex items-center justify-between gap-2">
+                <div className="overflow-hidden">
+                  <div className="text-xs sm:text-sm font-bold text-white truncate">
+                    {personal.name}
+                  </div>
+                  <div className="text-[10px] sm:text-xs font-mono text-cyan-400 font-medium truncate">
+                    DATA &amp; SOFTWARE ENG.
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#07111F] border border-slate-800 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[10px] sm:text-[11px] font-mono text-slate-300 font-semibold">
+                    ONLINE
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Floating Tech Badges Outside Face Area */}
-            <div className="absolute -top-3 -right-2 sm:-right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1726]/95 border border-cyan-500/40 shadow-xl text-xs font-semibold text-slate-200 backdrop-blur-md z-20">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-xs shadow-cyan-400" />
-              <span className="font-mono text-[11px] tracking-wide">PYTHON & ML</span>
+            {/* Subtle Floating Tech Badges on Frame Edge */}
+            <div className="hidden sm:flex absolute -bottom-3 -left-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm">
+              <span className="text-cyan-400 font-mono">#</span>
+              <span>PYTHON &amp; ML</span>
             </div>
 
-            <div className="absolute -bottom-2 -left-2 sm:-left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1726]/95 border border-emerald-500/40 shadow-xl text-xs font-semibold text-slate-200 backdrop-blur-md z-20">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-xs shadow-emerald-400" />
-              <span className="font-mono text-[11px] tracking-wide">FULL-STACK ENG</span>
+            <div className="hidden sm:flex absolute -top-3 -right-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm">
+              <span className="text-cyan-400 font-mono">#</span>
+              <span>FULL-STACK ENG</span>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* 08. Scroll Down Indicator */}
+      {/* Bottom Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 0.7, duration: 0.5 }}
-        className="mt-8 sm:mt-10 flex justify-center"
+        className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-500 text-[10px] sm:text-xs font-mono select-none"
       >
-        <a
-          href="#about"
-          className="group inline-flex flex-col items-center gap-1 text-slate-500 hover:text-cyan-400 transition-colors cursor-pointer min-h-[44px] justify-center"
+        <span className="tracking-widest uppercase text-slate-400">SCROLL</span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <span className="text-[10px] font-mono font-bold tracking-widest uppercase">
-            SCROLL TO EXPLORE
-          </span>
-          <ArrowDown className="w-3.5 h-3.5 animate-bounce text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
-        </a>
+          <ArrowDown className="w-3.5 h-3.5 text-cyan-400" />
+        </motion.div>
       </motion.div>
     </section>
   );

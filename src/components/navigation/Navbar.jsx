@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, FileText, ArrowUpRight } from 'lucide-react';
-import { Github, Linkedin } from '../ui/Icons';
+import { Menu, X, Download } from 'lucide-react';
+import { Github } from '../ui/Icons';
 import { portfolioData } from '../../data/portfolio';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import Button from '../ui/Button';
@@ -54,7 +54,7 @@ export const Navbar = () => {
         {/* Left: FP Logo / Name */}
         <a
           href="#hero"
-          className="group flex items-center gap-2.5 font-bold text-sm sm:text-base tracking-tight text-slate-100 hover:text-cyan-400 transition-colors shrink-0 max-w-[70%] sm:max-w-none"
+          className="group flex items-center gap-2.5 font-bold text-sm sm:text-base tracking-tight text-slate-100 hover:text-cyan-400 transition-colors shrink-0 max-w-[65%] sm:max-w-none"
         >
           <span className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs sm:text-sm font-extrabold shadow-sm shadow-cyan-500/30 group-hover:scale-105 transition-transform shrink-0">
             FP
@@ -89,15 +89,15 @@ export const Navbar = () => {
           })}
         </nav>
 
-        {/* Right: Resume & Social */}
+        {/* Right: GitHub Icon + Download Resume Button */}
         <div className="hidden md:flex items-center gap-2.5">
           {portfolioData.social.github && (
             <a
               href={portfolioData.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-[#0B1726] rounded-lg border border-transparent hover:border-slate-800 transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
-              aria-label="GitHub"
+              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-[#0B1726] rounded-lg border border-transparent hover:border-slate-800 transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center shrink-0"
+              aria-label="GitHub Profile"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -105,12 +105,13 @@ export const Navbar = () => {
           {portfolioData.social.resume && (
             <Button
               href={portfolioData.social.resume}
+              download="Muhammad_Faiz_Parande_Resume.pdf"
               variant="secondary"
               size="sm"
-              icon={<FileText className="w-3.5 h-3.5 text-cyan-400" />}
-              isExternal
+              icon={<Download className="w-3.5 h-3.5 text-cyan-400" />}
+              className="shadow-xs hover:border-cyan-500/50 text-xs px-3.5 py-2 font-medium"
             >
-              Resume
+              Download Resume
             </Button>
           )}
         </div>
@@ -167,13 +168,14 @@ export const Navbar = () => {
                   {portfolioData.social.resume && (
                     <Button
                       href={portfolioData.social.resume}
+                      download="Muhammad_Faiz_Parande_Resume.pdf"
                       variant="primary"
                       size="md"
-                      className="w-full min-h-[44px]"
-                      icon={<FileText className="w-4 h-4 text-slate-950" />}
-                      isExternal
+                      className="w-full min-h-[44px] justify-center shadow-md shadow-cyan-500/20"
+                      icon={<Download className="w-4 h-4 text-slate-950" />}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
-                      Resume PDF
+                      Download Resume
                     </Button>
                   )}
                   {portfolioData.social.github && (
