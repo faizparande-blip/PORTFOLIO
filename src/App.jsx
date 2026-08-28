@@ -1,4 +1,7 @@
-import React, { Component, Suspense, lazy } from 'react';
+import React, { Component, useState, Suspense, lazy } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import PortfolioLoader from './components/PortfolioLoader';
+import PointerSpotlight from './components/ui/PointerSpotlight';
 import TechBackground from './components/background/TechBackground';
 import Navbar from './components/navigation/Navbar';
 import Hero from './sections/Hero';
@@ -60,18 +63,34 @@ class ErrorBoundary extends Component {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoaderComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
     <ErrorBoundary>
       <div className="relative min-h-screen bg-[#050B14] text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300 overflow-x-hidden">
-        {/* Midnight Blue & Cyan Background */}
+        {/* Pre-loader with seamless exit transition */}
+        <AnimatePresence mode="wait">
+          {isLoading && (
+            <PortfolioLoader onComplete={handleLoaderComplete} />
+          )}
+        </AnimatePresence>
+
+        {/* Ambient Pointer Cursor Spotlight (Desktop) */}
+        <PointerSpotlight />
+
+        {/* Midnight Blue & Cyan Background Canvas */}
         <TechBackground />
 
-        {/* Critical Sticky Navbar */}
+        {/* Sticky Navbar */}
         <Navbar />
 
-        {/* Critical Above-The-Fold Hero */}
+        {/* Critical Hero with Staggered Entrance */}
         <main className="relative z-10">
-          <Hero isLoaded={true} />
+          <Hero isLoaded={!isLoading} />
 
           {/* Progressive Below-The-Fold Sections */}
           <Suspense fallback={<SectionPlaceholder />}>

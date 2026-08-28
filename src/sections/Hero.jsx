@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   Mail,
   ArrowRight,
-  ArrowDown
+  ArrowDown,
+  Sparkles,
+  Terminal
 } from 'lucide-react';
 import { Github, Linkedin } from '../components/ui/Icons';
 import { portfolioData } from '../data/portfolio';
 import Button from '../components/ui/Button';
 import profileImage from '../assets/images/Faizportfoliophoto.webp';
+import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 export const Hero = ({ isLoaded = true }) => {
   const { personal, social } = portfolioData;
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const roles = [
     "DATA SCIENTIST",
@@ -34,23 +38,48 @@ export const Hero = ({ isLoaded = true }) => {
     personal.email
   )}`;
 
+  // Interactive 3D Card Physics
+  const cardRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 260, mass: 0.1 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  const glareX = useSpring(useTransform(mouseX, [-0.5, 0.5], [0, 100]), springConfig);
+  const glareY = useSpring(useTransform(mouseY, [-0.5, 0.5], [0, 100]), springConfig);
+
+  const handleCardMouseMove = (e) => {
+    if (prefersReducedMotion || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleCardMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.09,
-        delayChildren: 0.1
+        staggerChildren: 0.08,
+        delayChildren: 0.15
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 22 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -71,11 +100,11 @@ export const Hero = ({ isLoaded = true }) => {
           animate={isLoaded ? "visible" : "hidden"}
           className="lg:col-span-7 flex flex-col items-start w-full"
         >
-          {/* Eyebrow & Status Badge */}
+          {/* Eyebrow & Live Status Badge */}
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2.5 mb-3 sm:mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950/40 text-cyan-300 border border-cyan-500/30 shadow-xs">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950/50 text-cyan-300 border border-cyan-500/40 shadow-xs shadow-cyan-500/20 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0 inline-block animate-pulse shadow-xs shadow-cyan-400" />
-              <span>Available for Engineering & Analytics</span>
+              <span>Available for Engineering &amp; Analytics</span>
             </span>
           </motion.div>
 
@@ -104,9 +133,9 @@ export const Hero = ({ isLoaded = true }) => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentRoleIndex}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
+                initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-mono text-xs sm:text-sm font-bold tracking-wider shadow-xs shadow-cyan-500/20"
               >
@@ -126,7 +155,7 @@ export const Hero = ({ isLoaded = true }) => {
             <span className="text-slate-400 hidden sm:inline">{personal.shortBio}</span>
           </motion.p>
 
-          {/* Single Primary CTA Button */}
+          {/* Single Primary CTA Button with Magnetic Glow */}
           <motion.div
             variants={itemVariants}
             className="flex items-center mb-8 sm:mb-10 w-full sm:w-auto"
@@ -135,7 +164,7 @@ export const Hero = ({ isLoaded = true }) => {
               href="#projects"
               variant="primary"
               size="lg"
-              className="w-full sm:w-auto min-h-[46px] justify-center shadow-lg shadow-cyan-500/25 px-8"
+              className="w-full sm:w-auto min-h-[46px] justify-center shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 px-8 transition-all"
               iconRight
               icon={<ArrowRight className="w-4 h-4 text-slate-950" />}
             >
@@ -193,14 +222,28 @@ export const Hero = ({ isLoaded = true }) => {
           </motion.div>
         </motion.div>
 
-        {/* Right Column: Framed Professional Profile Portrait with Cyber-Tech Corner Accents */}
+        {/* Right Column: Interactive 3D Perspective Portrait Card with Cyber Corner Accents */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.94 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 flex justify-center items-center w-full"
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 flex justify-center items-center w-full [perspective:1000px]"
         >
-          <div className="relative max-w-[300px] xs:max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] xl:max-w-[440px] w-full group">
+          <motion.div
+            ref={cardRef}
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
+            style={
+              prefersReducedMotion
+                ? {}
+                : {
+                    rotateX,
+                    rotateY,
+                    transformStyle: 'preserve-3d'
+                  }
+            }
+            className="relative max-w-[300px] xs:max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] xl:max-w-[440px] w-full group cursor-pointer"
+          >
             {/* Ambient Cyan Radial Backlight */}
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-sky-500/15 to-transparent rounded-3xl blur-2xl -z-10 group-hover:bg-cyan-500/30 transition-colors duration-500" />
 
@@ -209,11 +252,21 @@ export const Hero = ({ isLoaded = true }) => {
             <div className="absolute -inset-1.5 border border-cyan-500/20 rounded-3xl pointer-events-none -z-10" />
 
             {/* Portrait Frame Container */}
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0B1726] border border-slate-800 group-hover:border-cyan-500/50 shadow-2xl transition-all duration-300 group-hover:-translate-y-1">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0B1726] border border-slate-800 group-hover:border-cyan-500/60 shadow-2xl transition-all duration-300 group-hover:-translate-y-1">
               
               {/* Corner Tech Bracket Accents */}
               <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-400 pointer-events-none z-20" />
               <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-400 pointer-events-none z-20" />
+
+              {/* Dynamic Holographic Specular Glare */}
+              {!prefersReducedMotion && (
+                <motion.div
+                  className="absolute inset-0 pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: `radial-gradient(400px circle at ${glareX}% ${glareY}%, rgba(34, 211, 238, 0.15), transparent 70%)`
+                  }}
+                />
+              )}
 
               {/* Profile Photo */}
               <div className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden bg-[#07111F]">
@@ -250,17 +303,23 @@ export const Hero = ({ isLoaded = true }) => {
               </div>
             </div>
 
-            {/* Subtle Floating Tech Badges on Frame Edge */}
-            <div className="hidden sm:flex absolute -bottom-3 -left-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm">
+            {/* Subtle Floating Tech Badges on Frame Edge with 3D Depth */}
+            <motion.div
+              style={prefersReducedMotion ? {} : { transform: 'translateZ(24px)' }}
+              className="hidden sm:flex absolute -bottom-3 -left-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm group-hover:scale-105 transition-transform"
+            >
               <span className="text-cyan-400 font-mono">#</span>
               <span>PYTHON &amp; ML</span>
-            </div>
+            </motion.div>
 
-            <div className="hidden sm:flex absolute -top-3 -right-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm">
+            <motion.div
+              style={prefersReducedMotion ? {} : { transform: 'translateZ(24px)' }}
+              className="hidden sm:flex absolute -top-3 -right-3 items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0B1726]/95 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold shadow-lg shadow-cyan-950/40 backdrop-blur-sm group-hover:scale-105 transition-transform"
+            >
               <span className="text-cyan-400 font-mono">#</span>
               <span>FULL-STACK ENG</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -268,7 +327,7 @@ export const Hero = ({ isLoaded = true }) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
         className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-500 text-[10px] sm:text-xs font-mono select-none"
       >
         <span className="tracking-widest uppercase text-slate-400">SCROLL</span>
